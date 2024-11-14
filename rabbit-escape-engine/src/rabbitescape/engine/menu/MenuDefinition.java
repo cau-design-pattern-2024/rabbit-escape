@@ -32,7 +32,7 @@ public class MenuDefinition
     )
     {
         return menu(
-            "Welcome to Rabbit Escape!",
+            "Welcome to Team1's New Rabbit Escape!",
             item(
                 "Start Game",
                 menu(
