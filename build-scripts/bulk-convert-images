@@ -7,28 +7,14 @@ SRC=$1
 DEST=$2
 DPI=$3
 
-mkdir -p "$DEST"
+echo "... $SRC/*.svg ==> $DEST/*.png"
 
-function ink()
+find $SRC -name "*.svg" -print | \
+while read F; do
 {
-    find $SRC -name "*.svg" -print | \
-    while read F; do
-    {
-        NAME=${F##*/}
-        NAME=${NAME%.svg}
+    NAME=${F##*/}
+    NAME=${NAME%.svg}
 
-        SVG="$SRC/$NAME.svg"
-        PNG="$DEST/$NAME.png"
-
-        if [[ "$SVG" -nt "$PNG" ]]; then
-            inkscape \
-                --export-type=png \
-                --export-filename=$PNG \
-                --export-dpi=$DPI \
-                $SVG
-            echo ".. svg->png $PNG" 1>&2
-        fi
-    }; done
-}
-
-ink 2>&1
+    echo "$F --export-png=$DEST/$NAME.png --export-dpi=$3"
+}; done | \
+    inkscape --shell

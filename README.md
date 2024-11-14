@@ -35,10 +35,9 @@ and, of course, text:
 Running
 -------
 
-On PC:
-
-    ./runrabbit swing   # Launch the UI
-    ./runrabbit         # Launch text interface
+    make rungui          # Launch Swing GUI
+    make runmenu         # Launch text interface
+    make runat           # The animation tester
 
 Make Levels
 -----------

@@ -32,6 +32,7 @@ On Ubuntu, Debian, Raspberry Pi and similar, install the needed packages:
         git \
         make \
         openjdk-8-jdk \
+        ant \
         imagemagick \
         sox \
         inkscape \
@@ -46,7 +47,7 @@ images being generated.
 
 On Fedora some of the packages have different names.
 
-    sudo dnf install git make sox inkscape expect grep sed python3-lxml \
+    sudo dnf install git make ant ant-junit sox inkscape expect grep sed python3-lxml \
         java-1.8.0-openjdk-devel ImageMagick util-linux
 
 Get the source
@@ -54,6 +55,20 @@ Get the source
 
     git clone https://github.com/andybalaam/rabbit-escape.git
     cd rabbit-escape
+
+First, generate images
+----------------------
+
+Rabbit Escape has a lot of SVG images that need to be converted to PNG to be
+used.  This happens when you run the default `make` targets, but you can do
+it much quicker by running the special bulk target like this:
+
+    make all-images
+
+You should only need to do this once - after that you can run `make` normally
+and any updated images will be regenerated.  If you run `make clean-images`
+to delete all generated images, it is a good idea to regenerate them with
+`make all-images` again, or you will be in for a long wait.
 
 Run tests
 ---------
@@ -71,18 +86,16 @@ compile and run out of the box - please contact us if not.
 
 You should have 2 separate IntelliJ projects - one for non-Android and
 (optional) one for Android (see below).  Avoid loading the directory
-android into the non-Android project.
+rabbit-escape-ui-android into the non-Android project.
 
 You will need to run `make dist-swing` before you start.
-
-There is a video of how to set Rabbit Escape up from a clean git clone here: https://peertube.mastodon.host/videos/watch/11dc5754-7b75-46ea-af62-f983892f882e
 
 Eclipse
 -------
 
 There are Eclipse project files, so "File" -> "Import" ->
 "Existing projects into workspace" should work.  Avoid the
-android directory.
+rabbit-escape-ui-android directory.
 
 There is a code formatting profile in doc/eclipse-format.xml.  You can
 import it in Window -> Preferences -> Java -> Code Style -> Formatter
@@ -99,7 +112,7 @@ Android with Android Studio
 
     make
 
-Load the android directory as a project into Android
+Load the rabbit-escape-ui-android directory as a project into Android
 Studio.  From here you should be able to run it as normal.
 
 If you make changes in the non-Android code, run:
@@ -119,7 +132,7 @@ To build the debug APK from the command line:
     make android-debug
 
 This will create a file at
-android/app/build/outputs/apk/app-debug.apk .
+rabbit-escape-ui-android/app/build/outputs/apk/app-debug.apk .
 
 Android via command line
 ------------------------
@@ -146,7 +159,7 @@ Contributing
 As far as is practical, all code should be unit tested.
 
 The only directory that can contain java.awt or javax.swing code is
-src/ui-swing.  Everything else must not use these packages
+rabbit-escape-ui-swing.  Everything else must not use these packages
 since they are not available on Android.
 
 Please try to stick to the code format as you find it - braces on
