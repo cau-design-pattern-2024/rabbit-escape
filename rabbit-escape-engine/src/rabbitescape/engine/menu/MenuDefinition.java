@@ -32,7 +32,7 @@ public class MenuDefinition
     )
     {
         return menu(
-            "Welcome to Team1's New Rabbit Escape!",
+            "Hey, Welcome to Team1's Rabbit Escape!",
             item(
                 "Start Game",
                 menu(
@@ -68,7 +68,12 @@ public class MenuDefinition
             LevelSetInfo set = setI.object;
             ret[setI.index] = item(
                 set.name,
-                new LevelsMenu( set.dirName, loadedLevels, levelsCompleted ),
+                new LevelsMenu(
+                    set.name,
+                    set.dirName,
+                    loadedLevels,
+                    levelsCompleted
+                ),
                 true,
                 set.hidden
             );

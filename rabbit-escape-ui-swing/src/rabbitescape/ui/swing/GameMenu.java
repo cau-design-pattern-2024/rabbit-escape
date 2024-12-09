@@ -4,24 +4,14 @@ import static rabbitescape.engine.i18n.Translation.*;
 import static rabbitescape.engine.util.Util.*;
 import static rabbitescape.ui.swing.SwingConfigSetup.*;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.LayoutManager;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JToggleButton;
+import javax.swing.*;
 
 import rabbitescape.engine.Token;
 import rabbitescape.engine.config.Config;
@@ -30,7 +20,7 @@ import rabbitescape.render.BitmapCache;
 
 class GameMenu
 {
-    public static interface AbilityChangedListener
+    public interface AbilityChangedListener
     {
         void abilityChosen( Token.Type ability );
     }
@@ -50,7 +40,7 @@ class GameMenu
     private final Color backgroundColor;
 
     private final JPanel panel;
-    public final Map<Token.Type, JToggleButton> abilities;
+    public final Map<Token.Type, AbilityDisplay> abilities;
 
     public GameMenu(
         Container contentPane,
@@ -63,40 +53,77 @@ class GameMenu
     {
         this.bitmapCache = bitmapCache;
         this.backgroundColor = backgroundColor;
-        this.panel = createPanel( contentPane );
+        this.panel = createPanel();
+
+        Dimension doubleButtonSize = new Dimension(
+            buttonSizeInPixels.width * 2,
+            buttonSizeInPixels.height
+        );
+        Dimension spacerSize = new Dimension(
+            buttonSizeInPixels.width * 2,
+            buttonSizeInPixels.height / 2
+        );
 
         this.mute = addToggleButton(
             "menu_unmuted",
             "menu_muted",
             ConfigTools.getBool( uiConfig, CFG_MUTED ),
-            t( "Mute" )
+            t( "Mute" ),
+            doubleButtonSize
         );
 
         this.pause = addToggleButton(
-            "menu_pause", "menu_unpause", false, t( "Pause" ) );
+            "menu_pause",
+            "menu_unpause",
+            false,
+            t( "Pause" ),
+            doubleButtonSize
+        );
 
-        addSpacer();
+        addSpacer( spacerSize );
 
-        this.abilities = addAbilitiesButtons( abilityTypes );
+        this.abilities = addAbilitiesButtons(
+            abilityTypes, buttonSizeInPixels );
 
-        addSpacer();
+        addSpacer( spacerSize );
 
-        this.explodeAll = addButton( "menu_explode_all", t( "Explode all" ) );
+        this.explodeAll = addButton(
+            "menu_explode_all",
+            t( "Explode all" ),
+            doubleButtonSize
+        );
 
         this.speed =
-            addToggleButton( "menu_speedup_inactive", "menu_speedup_active",
-                             false, t( "speed up" ) );
+            addToggleButton(
+                "menu_speedup_inactive",
+                "menu_speedup_active",
+                false,
+                t( "speed up" ),
+                doubleButtonSize
+            );
 
-        this.zoomIn     = addButton( "menu_zoom_in",     t( "Zoom in" ) );
-        this.zoomOut    = addButton( "menu_zoom_out",    t( "Zoom out" ) );
-        this.back       = addButton( "menu_back",        t( "Back" ) );
+        this.zoomIn = addButton(
+            "menu_zoom_in",
+            t( "Zoom in" ),
+            doubleButtonSize
+        );
+        this.zoomOut = addButton(
+            "menu_zoom_out",
+            t( "Zoom out" ),
+            doubleButtonSize
+        );
+        this.back = addButton(
+            "menu_back",
+            t( "Back" ),
+            doubleButtonSize
+        );
 
         panel.setPreferredSize(
             new Dimension(
-                buttonSizeInPixels.width + 8,
-                  ( 2 * 16 )                                // Spacers
-                + ( 6 + abilityTypes.size() )               // Buttons
-                    * ( 16 + buttonSizeInPixels.height )
+                (int)( doubleButtonSize.width * 1.5 ),
+                  ( 2 * spacerSize.height )       // Spacers
+                + ( 6 + abilityTypes.size() )     // Buttons
+                    * ( 8 + buttonSizeInPixels.height )
             )
         );
 
@@ -110,7 +137,7 @@ class GameMenu
         contentPane.add( scrollPane, BorderLayout.WEST );
     }
 
-    private JPanel createPanel( Container contentPane )
+    private JPanel createPanel()
     {
         LayoutManager layout = new FlowLayout( FlowLayout.CENTER, 4, 4 );
         JPanel ret = new JPanel( layout );
@@ -120,10 +147,12 @@ class GameMenu
         return ret;
     }
 
-    private Map<Token.Type, JToggleButton> addAbilitiesButtons(
-        Map<Token.Type, Integer> abilityTypes )
+    private Map<Token.Type, AbilityDisplay> addAbilitiesButtons(
+        Map<Token.Type, Integer> abilityTypes,
+        Dimension buttonSizeInPixels
+    )
     {
-        Map<Token.Type, JToggleButton> ret = new HashMap<>();
+        Map<Token.Type, AbilityDisplay> ret = new HashMap<>();
 
         ButtonGroup abilitiesGroup = new ButtonGroup();
 
@@ -133,11 +162,26 @@ class GameMenu
             String iconName = "ability_" + ability.toString();
 
             JToggleButton button = addToggleButton(
-                iconName, null, false, t( Token.name( ability ) ) );
+                iconName,
+                null,
+                false,
+                t( Token.name( ability ) ),
+                buttonSizeInPixels
+            );
+
+            JLabel abilityNumber =  new JLabel();
+            abilityNumber.setPreferredSize( buttonSizeInPixels );
+            abilityNumber.setHorizontalTextPosition( SwingConstants.LEFT );
+            panel.add( abilityNumber );
 
             MenuTools.clickOnKey( button, iconName, key );
 
-            ret.put( ability, button );
+            AbilityDisplay abilityDisplay = new AbilityDisplay(
+                button,
+                abilityNumber
+            );
+            abilityDisplay.setNumLeft( abilityTypes.get( ability ) );
+            ret.put( ability, abilityDisplay );
 
             abilitiesGroup.add( button );
 
@@ -147,10 +191,11 @@ class GameMenu
         return ret;
     }
 
-    private void addSpacer()
+    private void addSpacer( Dimension spacerSize )
     {
         JPanel spacer = new JPanel();
         spacer.setBackground( backgroundColor );
+        spacer.setPreferredSize( spacerSize );
 
         panel.add( spacer );
     }
@@ -159,7 +204,8 @@ class GameMenu
         String unSelectedImage,
         String selectedImage,
         boolean selected,
-        String description
+        String description,
+        Dimension buttonSizeInPixels
     )
     {
         JToggleButton button = new JToggleButton( getIcon( unSelectedImage ) );
@@ -168,6 +214,7 @@ class GameMenu
         button.setBorderPainted( false );
         button.setSelected( selected );
         button.setToolTipText( description );
+        button.setPreferredSize( buttonSizeInPixels );
 
         if ( selectedImage != null )
         {
@@ -179,13 +226,18 @@ class GameMenu
         return button;
     }
 
-    private JButton addButton( String image, String description )
+    private JButton addButton(
+        String image,
+        String description,
+        Dimension buttonSizeInPixels
+    )
     {
         JButton button = new JButton( getIcon( image ) );
 
         button.setBackground( backgroundColor );
         button.setBorderPainted( false );
         button.setToolTipText( description );
+        button.setPreferredSize( buttonSizeInPixels );
 
         panel.add( button );
 
@@ -201,18 +253,39 @@ class GameMenu
     public void addAbilitiesListener( final AbilityChangedListener listener )
     {
         for (
-            final Map.Entry<Token.Type, JToggleButton> abilityEntry
+            final Map.Entry<Token.Type, AbilityDisplay> abilityEntry
                 : abilities.entrySet()
         )
         {
-            abilityEntry.getValue().addActionListener( new ActionListener()
-            {
-                @Override
-                public void actionPerformed( ActionEvent evt )
+            abilityEntry.getValue().button.addActionListener(
+                new ActionListener()
                 {
-                    listener.abilityChosen( abilityEntry.getKey() );
+                    @Override
+                    public void actionPerformed( ActionEvent evt )
+                    {
+                        listener.abilityChosen( abilityEntry.getKey() );
+                    }
                 }
-            } );
+            );
+        }
+    }
+
+    static class AbilityDisplay
+    {
+        final JToggleButton button;
+        final JLabel label;
+
+        AbilityDisplay(JToggleButton button, JLabel label) {
+            this.button = button;
+            this.label = label;
+        }
+
+        public void setNumLeft( int numLeft )
+        {
+            if ( numLeft == 0 ) {
+                button.setEnabled( false );
+            }
+            label.setText( " " + numLeft );
         }
     }
 }

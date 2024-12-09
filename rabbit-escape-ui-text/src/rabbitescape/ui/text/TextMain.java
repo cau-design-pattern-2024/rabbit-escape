@@ -176,7 +176,7 @@ public class TextMain
     {
         final String d = File.separator;
         String dir =
-            "rabbit-escape-engine" + d + "bin" + d +
+            "src/engine" + d + "bin" + d +
             "rabbitescape" + d + "levels";
         RealFileSystem fs = new RealFileSystem();
         for ( String s : fs.ls( dir, true ) )

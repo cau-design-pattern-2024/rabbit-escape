@@ -32,7 +32,6 @@ rabbit-escape-ui-android/app/app.iml
 bin/
 gen/
 .gradle/
-build/
 local.properties
 proguard/
 *.log
