@@ -10,7 +10,7 @@ import java.util.Map;
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.behaviours.*;
 
-public class Rabbit extends Thing implements Comparable<Rabbit>
+public abstract class Rabbit extends Thing implements Comparable<Rabbit>
 {
     public static enum Type
     {
@@ -19,12 +19,12 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
     }
 
     public final static int NOT_INDEXED = 0;
-    private final List<Behaviour> behaviours;
-    private final List<Behaviour> behavioursTriggerOrder;
+    protected List<Behaviour> behaviours;
+    protected List<Behaviour> behavioursTriggerOrder;
 
     public int index;
 
-    private Falling falling;
+    protected Falling falling;
 
     public Direction dir;
     public boolean onSlope;
@@ -33,70 +33,21 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
     public boolean slopeBashHop = false;
     public final Type type;
 
-    public Rabbit( int x, int y, Direction dir, Type type )
-    {
-        super( x, y, RABBIT_WALKING_LEFT );
+    protected Rabbit(int x, int y, Direction dir, Type type) {
+        super(x, y, RABBIT_WALKING_LEFT);
         this.dir = dir;
         this.onSlope = false;
         this.type = type;
         behaviours = new ArrayList<>();
         behavioursTriggerOrder = new ArrayList<>();
-        createBehaviours();
         index = NOT_INDEXED;
+
+        // 하위 클래스에서 구현할 createBehaviours 호출
+        createBehaviours();
     }
 
-    private void createBehaviours()
-    {
-        Climbing climbing = new Climbing();
-        Digging digging = new Digging();
-        Exploding exploding = new Exploding();
-        Burning burning = new Burning();
-        OutOfBounds outOfBounds = new OutOfBounds();
-        Drowning drowning = new Drowning();
-        Exiting exiting = new Exiting();
-        Brollychuting brollychuting = new Brollychuting( climbing, digging );
-        falling = new Falling( climbing, brollychuting, getFatalHeight() );
-        Bashing bashing = new Bashing();
-        Bridging bridging = new Bridging();
-        Blocking blocking = new Blocking();
-        Walking walking = new Walking();
-        RabbotCrash rabbotCrash = new RabbotCrash();
-        RabbotWait rabbotWait = new RabbotWait();
-
-        behavioursTriggerOrder.add( exploding );
-        behavioursTriggerOrder.add( outOfBounds );
-        behavioursTriggerOrder.add( burning );
-        behavioursTriggerOrder.add( drowning );
-        behavioursTriggerOrder.add( rabbotCrash );
-        behavioursTriggerOrder.add( falling );
-        behavioursTriggerOrder.add( exiting );
-        behavioursTriggerOrder.add( brollychuting );
-        behavioursTriggerOrder.add( climbing );
-        behavioursTriggerOrder.add( bashing );
-        behavioursTriggerOrder.add( digging );
-        behavioursTriggerOrder.add( bridging );
-        behavioursTriggerOrder.add( blocking );
-        behavioursTriggerOrder.add( rabbotWait );
-        behavioursTriggerOrder.add( walking );
-
-        behaviours.add( exploding );
-        behaviours.add( outOfBounds );
-        behaviours.add( burning );
-        behaviours.add( drowning );
-        behaviours.add( rabbotCrash );
-        behaviours.add( falling );
-        behaviours.add( exiting );
-        behaviours.add( brollychuting );
-        behaviours.add( bashing );
-        behaviours.add( digging );
-        behaviours.add( bridging );
-        behaviours.add( blocking );
-        behaviours.add( climbing );
-        behaviours.add( rabbotWait );
-        behaviours.add( walking );
-
-        assert behavioursTriggerOrder.size() == behaviours.size();
-    }
+    // 추상 메서드 선언
+    protected abstract void createBehaviours();
 
     public boolean isFallingToDeath()
     {
@@ -267,7 +218,7 @@ public class Rabbit extends Thing implements Comparable<Rabbit>
     }
 
     /** Rabbots can fall further than rabbits. */
-    private int getFatalHeight()
+    protected int getFatalHeight()
     {
         return ( type == Type.RABBIT ? 4 : 5 );
     }
