@@ -148,7 +148,7 @@ public class TextWorldManip
             waterAmounts, 
             abilities, 
             processor, 
-            num_rabs ,
+            num_rabs,
             num_weak_rabs
         );
 
@@ -166,7 +166,7 @@ public class TextWorldManip
         Map<Position, Integer> waterAmounts,
         Map<Token.Type, Integer> abilities,
         LineProcessor processor,
-        int num_rabs ,
+        int num_rabs,
         int num_weak_rabs
     )
     {
