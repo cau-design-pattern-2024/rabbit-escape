@@ -165,6 +165,11 @@ public class BehaviourTools
 
     public boolean isWall( Block block )
     {
+    	if ( block.material == Block.Material.ONOFF_DEACTIVE )
+    	{
+    		return false;
+    	}
+    	
         return (
                block != null
             && (
@@ -230,11 +235,15 @@ public class BehaviourTools
 
     public static boolean isSolid( Block block )
     {
-        return (
-               block.shape == FLAT
-            || block.shape == UP_LEFT
-            || block.shape == UP_RIGHT
-        );
+        return
+        	(
+        		block.material != Block.Material.ONOFF_DEACTIVE
+        		&& (
+        			   block.shape == FLAT
+        		    || block.shape == UP_LEFT
+        		    || block.shape == UP_RIGHT
+        		)
+        	);
     }
 
     public boolean isRoof( Block block )

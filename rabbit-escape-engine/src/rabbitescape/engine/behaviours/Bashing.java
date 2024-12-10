@@ -37,13 +37,21 @@ public class Bashing extends Behaviour
                 && t.blockAboveNext() != null
             )
             {
-                if (t.blockAboveNext().material == Block.Material.METAL)
+                if ( t.blockAboveNext().material == Block.Material.METAL )
                 {
                     stepsOfBashing = 0;
                     return t.rl(
                         RABBIT_BASHING_USELESSLY_RIGHT_UP,
                         RABBIT_BASHING_USELESSLY_LEFT_UP
-                        );
+                    );
+                }
+                else if ( t.blockAboveNext().material == Block.Material.ONOFF_BUTTON )
+                {
+                	stepsOfBashing = 0;
+                	return t.rl(
+                		RABBIT_BASHING_ONOFF_BUTTON_UP_RIGHT,
+                		RABBIT_BASHING_ONOFF_BUTTON_UP_LEFT
+                	);
                 }
                 else
                 {
@@ -74,6 +82,14 @@ public class Bashing extends Behaviour
                         RABBIT_BASHING_USELESSLY_RIGHT,
                         RABBIT_BASHING_USELESSLY_LEFT
                     );
+                }
+                else if ( t.blockAboveNext().material == Block.Material.ONOFF_BUTTON )
+                {
+                	stepsOfBashing = 0;
+                	return t.rl(
+                		RABBIT_BASHING_ONOFF_BUTTON_RIGHT,
+                		RABBIT_BASHING_ONOFF_BUTTON_LEFT
+                	);
                 }
                 else
                 {
@@ -116,6 +132,21 @@ public class Bashing extends Behaviour
                 rabbit.slopeBashHop = true;
                 rabbit.y -= 1;
                 return true;
+            }
+            case RABBIT_BASHING_ONOFF_BUTTON_RIGHT:
+            case RABBIT_BASHING_ONOFF_BUTTON_LEFT:
+            {
+            	world.switchOnOff();
+            	rabbit.slopeBashHop = false;
+            	return true;
+            }
+            case RABBIT_BASHING_ONOFF_BUTTON_UP_RIGHT:
+            case RABBIT_BASHING_ONOFF_BUTTON_UP_LEFT:
+            {
+            	world.switchOnOff();
+            	rabbit.slopeBashHop = true;
+            	rabbit.y -= 1;
+            	return true;
             }
             case RABBIT_BASHING_USELESSLY_RIGHT:
             case RABBIT_BASHING_USELESSLY_LEFT:

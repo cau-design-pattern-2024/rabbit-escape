@@ -131,6 +131,8 @@ public class World
     public final WorldChanges changes;
     public final String music;
     public final VoidMarkerStyle.Style voidStyle;
+    
+    public boolean is_button_on;
 
     public World(
         Dimension size,
@@ -270,6 +272,8 @@ public class World
         {
             thing.calcNewState( this );
         }
+        
+        this.is_button_on = true;
     }
 
     public void rabbitIndex( Rabbit r )
@@ -497,5 +501,46 @@ public class World
             }
         }
         return waterAmounts;
+    }
+    
+    /** Switch on-off, change OnOffBlock active property */
+    public void switchOnOff()
+    {
+    	this.is_button_on = !this.is_button_on;
+    	
+    	for ( Block block : blockTable )
+    	{
+    		if ( block instanceof OnOffButton )
+    		{
+    			((OnOffButton) block).on = this.is_button_on;
+    		}
+    		else if ( block instanceof OnOffBlock )
+    		{
+    			if ( ((OnOffBlock) block).onOffBlockType == OnOffBlock.OnOffBlockType.ACTIVE_AT_ON )
+    			{
+    				if (this.is_button_on)
+    				{
+    					block.material = Block.Material.ONOFF_ACTIVE;
+    				}
+    				else
+    				{
+    					block.material = Block.Material.ONOFF_DEACTIVE;
+    				}
+    				((OnOffBlock) block).active = this.is_button_on;
+    			}
+    			else
+    			{
+    				if (this.is_button_on)
+    				{
+    					block.material = Block.Material.ONOFF_DEACTIVE;
+    				}
+    				else
+    				{
+    					block.material = Block.Material.ONOFF_ACTIVE;
+    				}
+    				((OnOffBlock) block).active = !this.is_button_on;
+    			}
+    		}
+    	}
     }
 }

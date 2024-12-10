@@ -224,6 +224,19 @@ public class ChangeRenderer
             case RABBIT_BASHING_UP_LEFT:
                 chars.set( change.x - 1, change.y - 1, 'W' );
                 break;
+            // Added for ON/OFF feature
+            case RABBIT_BASHING_ONOFF_BUTTON_RIGHT:
+            	chars.set( change.x + 1, change.y, 'I' );
+            	break;
+            case RABBIT_BASHING_ONOFF_BUTTON_LEFT:
+            	chars.set( change.x - 1, change.y, 'J' );
+            	break;
+            case RABBIT_BASHING_ONOFF_BUTTON_UP_RIGHT:
+            	chars.set( change.x + 1, change.y, 'I' );
+            	break;
+            case RABBIT_BASHING_ONOFF_BUTTON_UP_LEFT:
+            	chars.set( change.x - 1, change.y, 'J' );
+            	break;
             case RABBIT_BASHING_USELESSLY_RIGHT:
                 chars.set( change.x + 1, change.y, 'I' );
                 break;

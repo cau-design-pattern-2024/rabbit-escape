@@ -34,6 +34,30 @@ public class BlockRenderer
                         break;
                 }
                 break;
+            case ONOFF_BUTTON:
+            	switch ( block.shape )
+                {
+                    case FLAT:            return 'u';
+                    default:
+                        break;
+                }
+                break;
+            case ONOFF_ACTIVE:
+            	switch ( block.shape )
+                {
+                    case FLAT:            return 'X';
+                    default:
+                        break;
+                }
+            	break;
+            case ONOFF_DEACTIVE:
+            	switch ( block.shape )
+                {
+                    case FLAT:            return 'x';
+                    default:
+                        break;
+                }
+            	break;
         }
         throw new AssertionError(
             "Unknown Block type: " + block.material + " " + block.shape );

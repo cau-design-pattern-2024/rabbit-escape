@@ -45,6 +45,10 @@ public class SpriteAnimator
 
     private static final String bridge_rising_right = "bridge_rising_right";
     private static final String bridge_rising_left  = "bridge_rising_left";
+    
+    private static final String onoff_button = "onoff_button";
+    private static final String onoff_active = "onoff_active";
+    private static final String onoff_deactive = "onoff_deactive";
 
     public SpriteAnimator(
         World world,
@@ -201,6 +205,33 @@ public class SpriteAnimator
                 switch ( block.shape )
                 {
                     case FLAT:            return metal_block[block.variant];
+                    default:
+                        break;
+                }
+                break;
+            case ONOFF_BUTTON:
+            	switch ( block.shape )
+                {
+                    case FLAT:
+                    	return onoff_button;
+                    default:
+                        break;
+                }
+                break;
+            case ONOFF_ACTIVE:
+            	switch ( block.shape )
+                {
+                    case FLAT:
+                    	return onoff_active;
+                    default:
+                        break;
+                }
+                break;
+            case ONOFF_DEACTIVE:
+            	switch ( block.shape )
+                {
+                    case FLAT:
+                    	return onoff_deactive;
                     default:
                         break;
                 }

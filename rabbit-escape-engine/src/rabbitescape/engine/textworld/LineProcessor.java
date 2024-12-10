@@ -2,6 +2,9 @@ package rabbitescape.engine.textworld;
 
 import static rabbitescape.engine.Block.Material.EARTH;
 import static rabbitescape.engine.Block.Material.METAL;
+import static rabbitescape.engine.Block.Material.ONOFF_BUTTON;
+import static rabbitescape.engine.Block.Material.ONOFF_ACTIVE;
+import static rabbitescape.engine.Block.Material.ONOFF_DEACTIVE;
 import static rabbitescape.engine.Block.Shape.BRIDGE_UP_LEFT;
 import static rabbitescape.engine.Block.Shape.BRIDGE_UP_RIGHT;
 import static rabbitescape.engine.Block.Shape.FLAT;
@@ -24,6 +27,8 @@ import rabbitescape.engine.Block;
 import rabbitescape.engine.Entrance;
 import rabbitescape.engine.Exit;
 import rabbitescape.engine.Fire;
+import rabbitescape.engine.OnOffBlock;
+import rabbitescape.engine.OnOffButton;
 import rabbitescape.engine.Pipe;
 import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.Thing;
@@ -542,6 +547,28 @@ public class LineProcessor
                 blocks.add(
                     new Block( x, y, EARTH, BRIDGE_UP_LEFT, 0 ) );
                 break;
+            }
+            // Added for ON/OFF feature
+            case 'u':
+            {
+            	blocks.add(
+            		new OnOffButton(
+            			new Block(x, y, ONOFF_BUTTON, FLAT, 0), true ) );
+            	break;
+            }
+            case 'V':
+            {
+            	blocks.add(
+            		new OnOffBlock(
+            			new Block(x, y, ONOFF_ACTIVE, FLAT, 0 ), OnOffBlock.OnOffBlockType.ACTIVE_AT_ON, true ) );
+            	break;
+            }
+            case 'v':
+            {
+            	blocks.add(
+            		new OnOffBlock(
+            			new Block(x, y, ONOFF_DEACTIVE, FLAT, 0 ), OnOffBlock.OnOffBlockType.ACTIVE_AT_OFF, false ) );
+            	break;
             }
             case 'r':
             {
