@@ -18,7 +18,7 @@ public class WeakRabbitEntrance extends Thing
 
     public WeakRabbitEntrance( int x, int y )
     {
-        super( x, y, ENTRANCE );
+        super( x, y, WEAK_ENTRANCE );
         delay[0] = -1;
         timeToNextRabbit = 0;
         rabbitEntranceCount = 0;
