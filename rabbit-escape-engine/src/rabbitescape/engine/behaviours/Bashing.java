@@ -83,7 +83,7 @@ public class Bashing extends Behaviour
                         RABBIT_BASHING_USELESSLY_LEFT
                     );
                 }
-                else if ( t.blockAboveNext().material == Block.Material.ONOFF_BUTTON )
+                else if ( t.blockNext().material == Block.Material.ONOFF_BUTTON )
                 {
                 	stepsOfBashing = 0;
                 	return t.rl(
