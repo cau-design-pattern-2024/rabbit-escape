@@ -219,6 +219,7 @@ public class ChangeDescription
         WATER_REGION_FALLING,
 
         ENTRANCE,
+        WEAK_ENTRANCE,
         EXIT,
     }
 
