@@ -36,6 +36,7 @@ public class TextWorldManip
     public  static final String hint                 = "hint";
     public  static final String solution             = "solution";
     private static final String num_rabbits          = "num_rabbits";
+    private static final String num_weak_rabbits     = "num_weak_rabbits";
     private static final String num_to_save          = "num_to_save";
     private static final String rabbit_delay         = "rabbit_delay";
     private static final String music                = "music";
@@ -51,6 +52,7 @@ public class TextWorldManip
 
     public static final List<String> META_INTS = Arrays.asList(
         num_rabbits,
+        num_weak_rabbits,
         num_to_save,
         num_saved,
         num_killed,
@@ -135,6 +137,7 @@ public class TextWorldManip
         );
 
         int num_rabs = processor.metaInt( num_rabbits, 10 );
+        int num_weak_rabs = processor.metaInt( num_weak_rabbits, 0 );
 
         World world = createWorldFromLineProcessor(
             nameIfNoneSupplied, 
@@ -145,7 +148,8 @@ public class TextWorldManip
             waterAmounts, 
             abilities, 
             processor, 
-            num_rabs 
+            num_rabs ,
+            num_weak_rabs
         );
 
         world.countRabbitsForIndex();
@@ -162,7 +166,8 @@ public class TextWorldManip
         Map<Position, Integer> waterAmounts,
         Map<Token.Type, Integer> abilities,
         LineProcessor processor,
-        int num_rabs 
+        int num_rabs ,
+        int num_weak_rabs
     )
     {
 
@@ -185,12 +190,13 @@ public class TextWorldManip
             processor.metaString( music, "" ),
             processor.metaInt( num_saved, 0 ),
             processor.metaInt( num_killed, 0 ),
-            processor.metaInt( num_waiting, num_rabs ),
+            processor.metaInt( num_waiting, num_rabs+num_weak_rabs ),
             processor.metaInt( rabbit_index_count, 0 ),
             processor.metaBool( paused, false ),
             processor.getComments(),
             statsListener,
-            processor.generateVoidMarkerStyle()
+            processor.generateVoidMarkerStyle(),
+            num_weak_rabs
         );
     }
 
@@ -360,6 +366,12 @@ public class TextWorldManip
             num_rabbits,  
             Integer.toString( world.num_rabbits ),
             world.comments 
+        );
+        addMeta(
+            ret,
+            num_weak_rabbits,
+            Integer.toString( world.num_weak_rabbits ),
+            world.comments
         );
         addMeta( 
             ret, 

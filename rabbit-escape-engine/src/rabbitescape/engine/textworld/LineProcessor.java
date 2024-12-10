@@ -563,6 +563,19 @@ public class LineProcessor
                 rabbits.add( r );
                 break;
             }
+            case 'w':
+            {
+                Rabbit r = new WeakRabbit( x, y, RIGHT, Rabbit.Type.RABBIT );
+                ret = r;
+                rabbits.add( r );
+                break;
+            }
+            case 'W':
+            {
+                ret = new WeakRabbitEntrance( x, y );
+                things.add( ret );
+                break;
+            }
             case 'Q':
             {
                 ret = new Entrance( x, y );

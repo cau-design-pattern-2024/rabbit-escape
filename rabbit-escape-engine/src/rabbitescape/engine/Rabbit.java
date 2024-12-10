@@ -42,6 +42,7 @@ public abstract class Rabbit extends Thing implements Comparable<Rabbit>
         behavioursTriggerOrder = new ArrayList<>();
         index = NOT_INDEXED;
 
+        // 객체 생성의 책임을 상위 클래스에서 추상화하여, 하위 클래스가 객체의 구체적인 생성 방식을 결정하도록 하는 팩토리 메서드 패턴
         // 하위 클래스에서 구현할 createBehaviours 호출
         createBehaviours();
     }

@@ -118,6 +118,7 @@ public class World
     public final String[] solutions;
     public final Comment[] comments;
     public final int num_rabbits;
+    public final int num_weak_rabbits;
     public final int num_to_save;
     public final int[] rabbit_delay;
 
@@ -170,6 +171,7 @@ public class World
         this.hints = hints;
         this.solutions = solutions;
         this.num_rabbits = num_rabbits;
+        this.num_weak_rabbits = 0;
         this.num_to_save = num_to_save;
         this.rabbit_delay = rabbit_delay;
         this.music = music;
@@ -238,6 +240,7 @@ public class World
         this.hints = hints;
         this.solutions = solutions;
         this.num_rabbits = num_rabbits;
+        this.num_weak_rabbits = 0;
         this.num_to_save = num_to_save;
         this.rabbit_delay = rabbit_delay;
         this.music = music;
@@ -248,6 +251,131 @@ public class World
         this.paused = paused;
         this.comments = comments;
         this.voidStyle = voidStyle;
+
+        this.changes = new WorldChanges( this, statsListener );
+
+        init();
+    }
+
+    public World(
+        Dimension size,
+        LookupTable2D<Block> blockTable,
+        List<Rabbit> rabbits,
+        List<Thing> things,
+        LookupTable2D<WaterRegion> waterTable,
+        Map<rabbitescape.engine.Token.Type, Integer> abilities,
+        String name,
+        String description,
+        String author_name,
+        String author_url,
+        String[] hints,
+        String[] solutions,
+        int num_rabbits,
+        int num_to_save,
+        int[] rabbit_delay,
+        String music,
+        int num_saved,
+        int num_killed,
+        int num_waiting,
+        int rabbit_index_count,
+        boolean paused,
+        Comment[] comments,
+        IgnoreWorldStatsListener statsListener,
+        VoidMarkerStyle.Style voidStyle,
+        int num_weak_rabbits)
+    {
+        this.size = size;
+        this.blockTable = blockTable;
+        this.rabbits = rabbits;
+        this.things = things;
+        this.waterTable = waterTable;
+        this.abilities = abilities;
+        this.name = name;
+        this.description = description;
+        this.author_name = author_name;
+        this.author_url = author_url;
+        this.hints = hints;
+        this.solutions = solutions;
+        this.num_rabbits = num_rabbits;
+        this.num_weak_rabbits = num_weak_rabbits;
+        this.num_to_save = num_to_save;
+        this.rabbit_delay = rabbit_delay;
+        this.music = music;
+        this.num_saved = num_saved;
+        this.num_killed = num_killed;
+        this.num_waiting = num_waiting;
+        this.rabbit_index_count = rabbit_index_count;
+        this.paused = paused;
+        this.comments = comments;
+        this.voidStyle = voidStyle;
+
+        this.changes = new WorldChanges( this, statsListener );
+
+        init();
+    }
+
+    public World(
+        Dimension size,
+        List<Block> blocks,
+        List<Rabbit> rabbits,
+        List<Thing> things,
+        Map<Position, Integer> waterAmounts,
+        Map<Token.Type, Integer> abilities,
+        String name,
+        String description,
+        String author_name,
+        String author_url,
+        String[] hints,
+        String[] solutions,
+        int num_rabbits,
+        int num_to_save,
+        int[] rabbit_delay,
+        String music,
+        int num_saved,
+        int num_killed,
+        int num_waiting,
+        int rabbit_index_count,
+        boolean paused,
+        Comment[] comments,
+        WorldStatsListener statsListener,
+        VoidMarkerStyle.Style voidStyle,
+        int num_weak_rabbits)
+    {
+        this.size = size;
+        this.rabbits = rabbits;
+        this.things = things;
+        this.abilities = abilities;
+        this.name = name;
+        this.description = description;
+        this.author_name = author_name;
+        this.author_url = author_url;
+        this.hints = hints;
+        this.solutions = solutions;
+        this.num_rabbits = num_rabbits;
+        this.num_weak_rabbits = num_weak_rabbits;
+        this.num_to_save = num_to_save;
+        this.rabbit_delay = rabbit_delay;
+        this.music = music;
+        this.num_saved = num_saved;
+        this.num_killed = num_killed;
+        this.num_waiting = num_waiting;
+        this.rabbit_index_count = rabbit_index_count;
+        this.paused = paused;
+        this.comments = comments;
+        this.voidStyle = voidStyle;
+
+        if ( -1 == size.width )
+        {
+            // make allowance for tests with no world
+            this.blockTable = null;
+            this.waterTable = new LookupTable2D<WaterRegion>( size );
+        }
+        else
+        {
+            this.blockTable = new LookupTable2D<Block>( blocks, size );
+            this.waterTable = WaterRegionFactory.generateWaterTable( blockTable,
+                waterAmounts );
+        }
 
         this.changes = new WorldChanges( this, statsListener );
 
@@ -431,17 +559,17 @@ public class World
 
     public Rabbit[] getRabbitsAt( int x, int y )
     {
-        List<Rabbit> ret = new ArrayList<Rabbit>();
+        List<Rabbit> ret = new ArrayList<>();
 
-        for ( Rabbit rabbit : rabbits )
+        for (Rabbit rabbit : rabbits)
         {
-            if ( rabbit.x == x && rabbit.y == y )
+            if (rabbit.x == x && rabbit.y == y)
             {
-                ret.add( rabbit );
+                ret.add(rabbit);
             }
         }
 
-        return ret.toArray( new NormalRabbit[ret.size()] );
+        return ret.toArray(new Rabbit[ret.size()]);
     }
 
     public int numRabbitsOut()

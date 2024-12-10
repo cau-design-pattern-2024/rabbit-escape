@@ -56,7 +56,8 @@ public class SandboxGame
             world.paused,
             new Comment[] {},
             new IgnoreWorldStatsListener(),
-            VoidMarkerStyle.Style.HIGHLIGHTER
+            VoidMarkerStyle.Style.HIGHLIGHTER,
+            world.num_weak_rabbits
         );
     }
 
@@ -75,6 +76,10 @@ public class SandboxGame
             if ( thing instanceof Entrance )
             {
                 clonedThings.add( new Entrance( thing.x, thing.y ) );
+            }
+            else if ( thing instanceof WeakRabbitEntrance )
+            {
+                clonedThings.add( new WeakRabbitEntrance( thing.x, thing.y ) );
             }
             else if ( thing instanceof Exit )
             {
