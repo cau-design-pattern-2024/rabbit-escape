@@ -1,0 +1,23 @@
+:name=Onoff test
+:description=On/off test level, bash the on/off button. 
+:author_name=nadering
+:author_url=http://artificialworlds.net/rabbit-escape/
+:hint.1=hint 1
+:hint.2=hint 2
+:hint.3=hint 3
+:num_rabbits=3
+:num_to_save=3
+:rabbit_delay=4
+:music=tryad-witness
+:bash=10
+#############
+#Q    V     #
+#     V     #
+#u    V     #
+######v     #
+#########   #
+#     v    u#
+#     v######
+#     v######
+#     V    O#
+#############
