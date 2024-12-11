@@ -132,6 +132,11 @@ public class World
     public final WorldChanges changes;
     public final String music;
     public final VoidMarkerStyle.Style voidStyle;
+    
+    public OnOffState onState;
+    public OnOffState offState;
+    
+    public OnOffState state;
 
     public World(
         Dimension size,
@@ -398,6 +403,11 @@ public class World
         {
             thing.calcNewState( this );
         }
+        
+        this.onState = new OnState(this);
+        this.offState = new OffState(this);
+        
+        this.state = this.onState;
     }
 
     public void rabbitIndex( Rabbit r )
@@ -625,5 +635,26 @@ public class World
             }
         }
         return waterAmounts;
+    }
+    
+    public void setState(OnOffState state)
+    {
+    	this.state = state;
+    }
+    
+    public OnOffState getOnState()
+    {
+    	return this.onState;
+    }
+    
+    public OnOffState getOffState()
+    {
+    	return this.offState;
+    }
+    
+    /** Switch on-off, change OnOffBlock active property */
+    public void switchOnOff()
+    {
+    	state.switchOnOff();
     }
 }

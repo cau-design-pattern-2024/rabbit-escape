@@ -2,6 +2,9 @@ package rabbitescape.engine.textworld;
 
 import static rabbitescape.engine.Block.Material.EARTH;
 import static rabbitescape.engine.Block.Material.METAL;
+import static rabbitescape.engine.Block.Material.ONOFF_BUTTON;
+import static rabbitescape.engine.Block.Material.ONOFF_ACTIVE;
+import static rabbitescape.engine.Block.Material.ONOFF_DEACTIVE;
 import static rabbitescape.engine.Block.Shape.BRIDGE_UP_LEFT;
 import static rabbitescape.engine.Block.Shape.BRIDGE_UP_RIGHT;
 import static rabbitescape.engine.Block.Shape.FLAT;
@@ -19,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import rabbitescape.engine.*;
 import rabbitescape.engine.util.Dimension;
 import rabbitescape.engine.util.MegaCoder;
@@ -534,6 +536,27 @@ public class LineProcessor
                 blocks.add(
                     new Block( x, y, EARTH, BRIDGE_UP_LEFT, 0 ) );
                 break;
+            }
+            // Added for ON/OFF feature
+            case 'u':
+            {
+            	blocks.add(
+            		new OnOffButton(x, y, ONOFF_BUTTON, FLAT, 0) );
+            	break;
+            }
+            case 'V':
+            {
+            	blocks.add(
+            		new OnOffBlock(
+            			new Block(x, y, ONOFF_ACTIVE, FLAT, 0 ), OnOffBlock.OnOffBlockType.ACTIVE_AT_ON ) );
+            	break;
+            }
+            case 'v':
+            {
+            	blocks.add(
+            		new OnOffBlock(
+            			new Block(x, y, ONOFF_DEACTIVE, FLAT, 0 ), OnOffBlock.OnOffBlockType.ACTIVE_AT_OFF ) );
+            	break;
             }
             case 'r':
             {

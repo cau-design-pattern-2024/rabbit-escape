@@ -9,7 +9,10 @@ public class Block implements LookupItem2D
     public enum Material
     {
         EARTH,
-        METAL
+        METAL,
+        ONOFF_BUTTON,
+        ONOFF_ACTIVE,
+        ONOFF_DEACTIVE,
     }
 
     public enum Shape
@@ -23,7 +26,7 @@ public class Block implements LookupItem2D
 
     public final int x;
     public final int y;
-    public final Material material;
+    public Material material;
     public final Shape shape;
     public final int variant;
 

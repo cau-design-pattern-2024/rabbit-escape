@@ -31,6 +31,10 @@ rabbit_bashing_left.rea
 rabbit_bashing_right.rea
 rabbit_bashing_up_left.rea
 rabbit_bashing_up_right.rea
+rabbit_bashing_onoff_button_left.rea
+rabbit_bashing_onoff_button_right.rea
+rabbit_bashing_onoff_button_up_left.rea
+rabbit_bashing_onoff_button_up_right.rea
 rabbit_bashing_uselessly_left.rea
 rabbit_bashing_uselessly_left_up.rea
 rabbit_bashing_uselessly_right.rea
