@@ -1,12 +1,12 @@
-:name=Onoff test
-:description=On/off test level, bash the on/off button. 
+:name=Onoff test 2
+:description=On/off test level 2, bash the on/off button, save a rabbit, explode all.
 :author_name=nadering
 :author_url=http://artificialworlds.net/rabbit-escape/
 :hint.1=hint 1
 :hint.2=hint 2
 :hint.3=hint 3
 :num_rabbits=3
-:num_to_save=3
+:num_to_save=1
 :rabbit_delay=4
 :music=tryad-witness
 :bash=10
@@ -16,8 +16,8 @@
 #u    V     #
 ######v     #
 #########   #
-#     v    u#
-#     v######
-#     v######
-#     V    O#
+#vVv  v    u#
+####  v######
+####  v######
+####  V    O#
 #############
