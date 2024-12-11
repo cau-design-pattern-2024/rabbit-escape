@@ -233,7 +233,8 @@ public class TextMain
                 world.paused,
                 world.comments,
                 new IgnoreWorldStatsListener(),
-                world.voidStyle
+                world.voidStyle,
+                world.num_weak_rabbits
             );
         }
     }

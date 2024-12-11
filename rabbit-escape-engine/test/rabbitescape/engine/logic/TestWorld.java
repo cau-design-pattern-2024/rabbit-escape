@@ -143,7 +143,7 @@ public class TestWorld
             ":rabbit_delay=1",
             " Q #r#",
             "   ###",
-            "# ##y#",  // New rabbits from entrance, and existing ones
+            "# ##y#",  // new NormalRabbits from entrance, and existing ones
             "######"
         );
 

@@ -5,16 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import rabbitescape.engine.Entrance;
-import rabbitescape.engine.Exit;
-import rabbitescape.engine.Fire;
-import rabbitescape.engine.IgnoreWorldStatsListener;
-import rabbitescape.engine.Pipe;
-import rabbitescape.engine.Rabbit;
-import rabbitescape.engine.Thing;
-import rabbitescape.engine.Token;
-import rabbitescape.engine.VoidMarkerStyle;
-import rabbitescape.engine.World;
+import rabbitescape.engine.*;
 import rabbitescape.engine.textworld.Comment;
 
 /**
@@ -65,7 +56,8 @@ public class SandboxGame
             world.paused,
             new Comment[] {},
             new IgnoreWorldStatsListener(),
-            VoidMarkerStyle.Style.HIGHLIGHTER
+            VoidMarkerStyle.Style.HIGHLIGHTER,
+            world.num_weak_rabbits
         );
     }
 
@@ -84,6 +76,10 @@ public class SandboxGame
             if ( thing instanceof Entrance )
             {
                 clonedThings.add( new Entrance( thing.x, thing.y ) );
+            }
+            else if ( thing instanceof WeakRabbitEntrance )
+            {
+                clonedThings.add( new WeakRabbitEntrance( thing.x, thing.y ) );
             }
             else if ( thing instanceof Exit )
             {
@@ -146,7 +142,7 @@ public class SandboxGame
      */
     private Rabbit cloneRabbit( Rabbit rabbit )
     {
-        return new Rabbit( rabbit.x, rabbit.y, rabbit.dir, rabbit.type );
+        return new NormalRabbit( rabbit.x, rabbit.y, rabbit.dir, rabbit.type );
     }
 
     /**
