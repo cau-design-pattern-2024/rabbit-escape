@@ -6,6 +6,7 @@ import java.util.List;
 
 import rabbitescape.engine.ChangeDescription.State;
 import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.WeakRabbit;
 
 public class RabbitRenderer
 {
@@ -32,6 +33,10 @@ public class RabbitRenderer
 
     private static char charForRabbit( Rabbit rabbit )
     {
+        if ( rabbit instanceof WeakRabbit )
+        {
+            return 'w';
+        }
         if ( rabbit.dir == RIGHT )
         {
             if ( rabbit.type == Rabbit.Type.RABBIT )

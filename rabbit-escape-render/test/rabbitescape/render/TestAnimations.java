@@ -8,11 +8,9 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import static rabbitescape.engine.Rabbit.Type.*;
 import static rabbitescape.engine.util.Util.*;
+
+import rabbitescape.engine.*;
 import rabbitescape.engine.ChangeDescription.State;
-import rabbitescape.engine.Direction;
-import rabbitescape.engine.Rabbit;
-import rabbitescape.engine.Thing;
-import rabbitescape.engine.Token;
 import rabbitescape.render.AnimationLoader;
 
 public class TestAnimations
@@ -53,7 +51,7 @@ public class TestAnimations
             }
         };
 
-        Rabbit rabbit = new Rabbit( 1, 2, Direction.LEFT, RABBOT );
+        Rabbit rabbit = new NormalRabbit( 1, 2, Direction.LEFT, RABBOT );
 
         for ( State s: filter(isRabbitState, list(State.values())) )
         {

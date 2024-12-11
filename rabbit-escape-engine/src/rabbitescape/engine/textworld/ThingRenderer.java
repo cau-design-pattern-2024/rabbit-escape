@@ -2,12 +2,7 @@ package rabbitescape.engine.textworld;
 
 import java.util.List;
 
-import rabbitescape.engine.Entrance;
-import rabbitescape.engine.Exit;
-import rabbitescape.engine.Fire;
-import rabbitescape.engine.Pipe;
-import rabbitescape.engine.Thing;
-import rabbitescape.engine.Token;
+import rabbitescape.engine.*;
 import rabbitescape.engine.Token.Type;
 import rabbitescape.engine.err.RabbitEscapeException;
 
@@ -47,6 +42,10 @@ public class ThingRenderer
         if ( thing instanceof Entrance )
         {
             return 'Q';
+        }
+        else if ( thing instanceof WeakRabbitEntrance )
+        {
+            return 'W';
         }
         else if ( thing instanceof Exit )
         {

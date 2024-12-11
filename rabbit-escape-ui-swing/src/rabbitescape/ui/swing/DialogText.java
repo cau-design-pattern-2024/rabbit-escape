@@ -31,15 +31,39 @@ public class DialogText
             + "</p>";
     }
 
-    static String statsHtml( World world )
-    {
-        return
-              "<p class='lower'>"
-            + t(
-                "Rabbits: ${num_rabbits}  Must save: ${num_to_save}",
-                DialogText.statsValues( world )
+    static String statsHtml(World world) {
+        Map<String, Object> statsValues = DialogText.statsValues(world);
+
+        StringBuilder htmlBuilder = new StringBuilder();
+        htmlBuilder.append("<p class='lower'>");
+        htmlBuilder.append(
+            t(
+                "Rabbits: ${num_rabbits}",
+                statsValues
             )
-            + "</p>";
+        );
+
+        // num_weak_rabbits가 0이 아닌 경우 텍스트 추가
+        if ((int) statsValues.get("num_weak_rabbits") > 0) {
+            htmlBuilder.append(" ");
+            htmlBuilder.append(
+                t(
+                    "Weak Rabbits: ${num_weak_rabbits}",
+                    statsValues
+                )
+            );
+        }
+
+        htmlBuilder.append(" ");
+        htmlBuilder.append(
+            t(
+                "Must save: ${num_to_save}",
+                statsValues
+            )
+        );
+
+        htmlBuilder.append("</p>");
+        return htmlBuilder.toString();
     }
 
     static String authorHtml( World world )
@@ -123,6 +147,7 @@ public class DialogText
     {
         Map<String, Object> values = new HashMap<String, Object>();
         values.put( "num_rabbits", world.num_rabbits );
+        values.put( "num_weak_rabbits", world.num_weak_rabbits );
         values.put( "num_to_save", world.num_to_save );
         values.put( "num_saved",   world.num_saved );
         return values;

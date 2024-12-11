@@ -6,6 +6,7 @@ dist/
 rabbit-escape-ui-swing/src/rabbitescape/ui/swing/sounds/*.wav
 rabbit-escape-ui-swing/src/rabbitescape/ui/swing/music/*.wav
 .idea/workspace.xml
+# ls.txt
 levels.txt
 doc/doxygen
 recordings/
