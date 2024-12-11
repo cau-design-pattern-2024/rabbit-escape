@@ -20,10 +20,11 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.KeyStroke;
+import javax.swing.*;
 
+import rabbitescape.engine.ChangeDescription;
+import rabbitescape.engine.Rabbit;
+import rabbitescape.engine.RabbitObserver;
 import rabbitescape.engine.Token;
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigTools;
@@ -32,7 +33,7 @@ import rabbitescape.engine.solution.SelectAction;
 import rabbitescape.render.BitmapCache;
 import rabbitescape.render.gameloop.Physics.StatsChangedListener;
 
-public class GameUi implements StatsChangedListener
+public class GameUi implements StatsChangedListener, RabbitObserver
 {
     private class Listener extends EmptyListener implements MouseWheelListener
     {
@@ -472,6 +473,10 @@ public class GameUi implements StatsChangedListener
     {
         this.gameLaunch = gameLaunch;
 
+        // World에 Observer 등록
+        gameLaunch.world.addRabbitObserver(this);
+
+
         this.menu = new GameMenu(
             contentPane,
             bitmapCache,
@@ -684,4 +689,31 @@ public class GameUi implements StatsChangedListener
             }
         }
     }
+
+    @Override
+    public void onRabbitStateChanged( Rabbit rabbit, ChangeDescription.State newState) {
+        // 토끼 추락사 상태 감지
+        switch (newState) {
+            case RABBIT_FALLING:
+            case RABBIT_FALLING_1:
+            case RABBIT_DYING_OF_FALLING:
+            case RABBIT_DYING_OF_FALLING_2:
+            case RABBIT_DYING_OF_FALLING_SLOPE_RISE_LEFT:
+            case RABBIT_DYING_OF_FALLING_SLOPE_RISE_RIGHT:
+            case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_LEFT:
+            case RABBIT_DYING_OF_FALLING_2_SLOPE_RISE_RIGHT:
+                // 추락 상태면 화면 흔들기
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        frame.shakeWindow();
+                    }
+                });
+                break;
+            default:
+                // 다른 상태는 무시
+                break;
+        }
+    }
+
 }
