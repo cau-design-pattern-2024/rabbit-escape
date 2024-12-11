@@ -10,21 +10,18 @@ public class OnOffBlock extends Block
 	}
 
 	public OnOffBlockType onOffBlockType;
-	public boolean active;
 	
-	public OnOffBlock(int x, int y, Material material, Shape shape, int variant, OnOffBlockType onOffBlockType, boolean active)
+	public OnOffBlock(int x, int y, Material material, Shape shape, int variant, OnOffBlockType onOffBlockType)
 	{
 		super(x, y, material, shape, variant);
 		
 		this.onOffBlockType = onOffBlockType;
-		this.active = active;
 	}
 
-	public OnOffBlock(Block block, OnOffBlockType onOffBlockType, boolean active)
+	public OnOffBlock(Block block, OnOffBlockType onOffBlockType)
 	{
 		super(block.x, block.y, block.material, block.shape, block.variant);
 		
 		this.onOffBlockType = onOffBlockType;
-		this.active = active;
 	}
 }

@@ -552,22 +552,21 @@ public class LineProcessor
             case 'u':
             {
             	blocks.add(
-            		new OnOffButton(
-            			new Block(x, y, ONOFF_BUTTON, FLAT, 0), true ) );
+            		new OnOffButton(x, y, ONOFF_BUTTON, FLAT, 0) );
             	break;
             }
             case 'V':
             {
             	blocks.add(
             		new OnOffBlock(
-            			new Block(x, y, ONOFF_ACTIVE, FLAT, 0 ), OnOffBlock.OnOffBlockType.ACTIVE_AT_ON, true ) );
+            			new Block(x, y, ONOFF_ACTIVE, FLAT, 0 ), OnOffBlock.OnOffBlockType.ACTIVE_AT_ON ) );
             	break;
             }
             case 'v':
             {
             	blocks.add(
             		new OnOffBlock(
-            			new Block(x, y, ONOFF_DEACTIVE, FLAT, 0 ), OnOffBlock.OnOffBlockType.ACTIVE_AT_OFF, false ) );
+            			new Block(x, y, ONOFF_DEACTIVE, FLAT, 0 ), OnOffBlock.OnOffBlockType.ACTIVE_AT_OFF ) );
             	break;
             }
             case 'r':

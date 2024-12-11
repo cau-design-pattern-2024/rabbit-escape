@@ -53,7 +53,11 @@ public class Digging extends Behaviour
             }
             else if ( t.blockBelow() != null )
             {
-                if ( t.blockBelow().material == Block.Material.METAL )
+                if (
+                	t.blockBelow().material == Block.Material.METAL
+                 || t.blockBelow().material == Block.Material.ONOFF_ACTIVE
+                 || t.blockBelow().material == Block.Material.ONOFF_DEACTIVE
+                )
                 {
                     stepsOfDigging = 0;
                     return RABBIT_DIGGING_USELESSLY;

@@ -37,7 +37,11 @@ public class Bashing extends Behaviour
                 && t.blockAboveNext() != null
             )
             {
-                if ( t.blockAboveNext().material == Block.Material.METAL )
+                if (
+                	t.blockAboveNext().material == Block.Material.METAL
+                 || t.blockAboveNext().material == Block.Material.ONOFF_ACTIVE
+                 || t.blockAboveNext().material == Block.Material.ONOFF_DEACTIVE
+                )
                 {
                     stepsOfBashing = 0;
                     return t.rl(
@@ -75,7 +79,11 @@ public class Bashing extends Behaviour
             }
             else if ( t.blockNext() != null )
             {
-                if ( t.blockNext().material == Block.Material.METAL )
+                if (
+                	t.blockNext().material == Block.Material.METAL
+                 || t.blockNext().material == Block.Material.ONOFF_ACTIVE
+                 || t.blockNext().material == Block.Material.ONOFF_DEACTIVE
+                )
                 {
                     stepsOfBashing = 0;
                     return t.rl(
