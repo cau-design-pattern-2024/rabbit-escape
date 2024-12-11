@@ -37,6 +37,8 @@ public class TextWorldManip
     public  static final String solution             = "solution";
     private static final String num_rabbits          = "num_rabbits";
     private static final String num_weak_rabbits     = "num_weak_rabbits";
+    private static final String num_fragile_rabbits  = "num_fragile_rabbits";
+    private static final String num_delicate_rabbits = "num_delicate_rabbits";
     private static final String num_to_save          = "num_to_save";
     private static final String rabbit_delay         = "rabbit_delay";
     private static final String music                = "music";
@@ -53,6 +55,8 @@ public class TextWorldManip
     public static final List<String> META_INTS = Arrays.asList(
         num_rabbits,
         num_weak_rabbits,
+        num_fragile_rabbits,
+        num_delicate_rabbits,
         num_to_save,
         num_saved,
         num_killed,
@@ -138,6 +142,8 @@ public class TextWorldManip
 
         int num_rabs = processor.metaInt( num_rabbits, 10 );
         int num_weak_rabs = processor.metaInt( num_weak_rabbits, 0 );
+        int num_fragile_rabs = processor.metaInt( num_fragile_rabbits, 0 );
+        int num_delicate_rabs = processor.metaInt( num_delicate_rabbits, 0 );
 
         World world = createWorldFromLineProcessor(
             nameIfNoneSupplied, 
@@ -149,7 +155,9 @@ public class TextWorldManip
             abilities, 
             processor, 
             num_rabs,
-            num_weak_rabs
+            num_weak_rabs,
+            num_fragile_rabs,
+            num_delicate_rabs
         );
 
         world.countRabbitsForIndex();
@@ -167,7 +175,9 @@ public class TextWorldManip
         Map<Token.Type, Integer> abilities,
         LineProcessor processor,
         int num_rabs,
-        int num_weak_rabs
+        int num_weak_rabs,
+        int num_fragile_rabs,
+        int num_delicate_rabs
     )
     {
 
@@ -190,13 +200,15 @@ public class TextWorldManip
             processor.metaString( music, "" ),
             processor.metaInt( num_saved, 0 ),
             processor.metaInt( num_killed, 0 ),
-            processor.metaInt( num_waiting, num_rabs+num_weak_rabs ),
+            processor.metaInt( num_waiting, num_rabs ),
             processor.metaInt( rabbit_index_count, 0 ),
             processor.metaBool( paused, false ),
             processor.getComments(),
             statsListener,
             processor.generateVoidMarkerStyle(),
-            num_weak_rabs
+            num_weak_rabs,
+            num_fragile_rabs,
+            num_delicate_rabs
         );
     }
 
@@ -371,6 +383,18 @@ public class TextWorldManip
             ret,
             num_weak_rabbits,
             Integer.toString( world.num_weak_rabbits ),
+            world.comments
+        );
+        addMeta(
+            ret,
+            num_fragile_rabbits,
+            Integer.toString( world.num_fragile_rabbits ),
+            world.comments
+        );
+        addMeta(
+            ret,
+            num_delicate_rabbits,
+            Integer.toString( world.num_delicate_rabbits ),
             world.comments
         );
         addMeta( 

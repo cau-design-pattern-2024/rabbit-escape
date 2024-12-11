@@ -47,6 +47,14 @@ public class ThingRenderer
         {
             return 'W';
         }
+        else if ( thing instanceof FragileRabbitEntrance )
+        {
+            return 'F';
+        }
+        else if ( thing instanceof DelicateRabbitEntrance )
+        {
+            return 'E';
+        }
         else if ( thing instanceof Exit )
         {
             return 'O';

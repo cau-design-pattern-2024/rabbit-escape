@@ -117,9 +117,29 @@ public class WorldChanges
 
     public synchronized void enterRabbit( Rabbit rabbit )
     {
-        --world.num_waiting;
-        rabbitsToEnter.add( rabbit );
+        if(rabbit instanceof NormalRabbit){
+            --world.num_waiting;
+            if(world.num_waiting>=0){
+                rabbitsToEnter.add( rabbit );
+            }
+        }else if(rabbit instanceof WeakRabbit){
+            --world.num_weak_rabbits;
+            if(world.num_weak_rabbits>=0){
+                rabbitsToEnter.add( rabbit );
+            }
+        }else if(rabbit instanceof FragileRabbit){
+            --world.num_fragile_rabbits;
+            if(world.num_fragile_rabbits>=0){
+                rabbitsToEnter.add( rabbit );
+            }
+        }else if(rabbit instanceof DelicateRabbit){
+            --world.num_delicate_rabbits;
+            if(world.num_delicate_rabbits>=0){
+                rabbitsToEnter.add( rabbit );
+            }
+        }
     }
+
 
     private synchronized void revertKillRabbits()
     {

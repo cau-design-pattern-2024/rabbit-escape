@@ -353,6 +353,10 @@ public class ChangeRenderer
                 break;
             case WEAK_ENTRANCE:
                 break;
+            case FRAGILE_ENTRANCE:
+                break;
+            case DELICATE_ENTRANCE:
+                break;
             case EXIT:
                 break;
             default:

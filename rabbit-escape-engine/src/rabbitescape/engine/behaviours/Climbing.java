@@ -13,6 +13,7 @@ public class Climbing extends Behaviour
 {
     boolean hasAbility = false;
     public boolean abilityActive = false;
+    public boolean isNull = false;
 
     @Override
     public void cancel()
@@ -23,6 +24,9 @@ public class Climbing extends Behaviour
     @Override
     public boolean checkTriggered( Rabbit rabbit, World world )
     {
+        if(isNull){
+            return false;
+        }
         BehaviourTools t = new BehaviourTools( rabbit, world );
 
         return !hasAbility && t.pickUpToken( climb, true );

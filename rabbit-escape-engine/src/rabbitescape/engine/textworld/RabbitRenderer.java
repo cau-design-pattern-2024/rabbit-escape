@@ -5,6 +5,8 @@ import static rabbitescape.engine.Direction.*;
 import java.util.List;
 
 import rabbitescape.engine.ChangeDescription.State;
+import rabbitescape.engine.DelicateRabbit;
+import rabbitescape.engine.FragileRabbit;
 import rabbitescape.engine.Rabbit;
 import rabbitescape.engine.WeakRabbit;
 
@@ -36,6 +38,12 @@ public class RabbitRenderer
         if ( rabbit instanceof WeakRabbit )
         {
             return 'w';
+        }else if ( rabbit instanceof FragileRabbit )
+        {
+            return 'f';
+        }else if ( rabbit instanceof DelicateRabbit )
+        {
+            return 'e';
         }
         if ( rabbit.dir == RIGHT )
         {

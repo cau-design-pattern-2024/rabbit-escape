@@ -1,5 +1,7 @@
 entrance.rea
 weak_entrance.rea
+fragile_entrance.rea
+delicate_entrance.rea
 exit.rea
 fire_a.rea
 fire_a_fall_to_rise_left.rea

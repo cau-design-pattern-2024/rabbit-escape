@@ -226,6 +226,8 @@ public class ChangeDescription
 
         ENTRANCE,
         WEAK_ENTRANCE,
+        FRAGILE_ENTRANCE,
+        DELICATE_ENTRANCE,
         EXIT,
     }
 
