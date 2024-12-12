@@ -40,6 +40,7 @@ public class TestOnOff
 		
 		world.step();
 		
+		// Rabbit can not pass the active block
 		assertThat(
 			renderWorld( world, true, false ),
 			equalTo(
@@ -79,6 +80,7 @@ public class TestOnOff
 		
 		world.step();
 		
+		// When rabbit bashes to on/off button, on/off switches.
 		assertThat(
 			renderWorld( world, true, false ),
 			equalTo(
@@ -89,6 +91,7 @@ public class TestOnOff
 		
 		world.step();
 		
+		// Active block becomes deactive block.
 		assertThat(
 			renderWorld( world, true, false ),
 			equalTo(
@@ -139,6 +142,7 @@ public class TestOnOff
 		
 		world.step();
 		
+		// Rabbit can pass the deactive block
 		assertThat(
 			renderWorld( world, true, false ),
 			equalTo(
