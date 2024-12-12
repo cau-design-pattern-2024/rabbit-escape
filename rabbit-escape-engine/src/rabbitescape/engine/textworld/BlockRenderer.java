@@ -45,7 +45,7 @@ public class BlockRenderer
             case ONOFF_ACTIVE:
             	switch ( block.shape )
                 {
-                    case FLAT:            return 'X';
+                    case FLAT:            return 'V';
                     default:
                         break;
                 }
@@ -53,7 +53,7 @@ public class BlockRenderer
             case ONOFF_DEACTIVE:
             	switch ( block.shape )
                 {
-                    case FLAT:            return 'x';
+                    case FLAT:            return 'v';
                     default:
                         break;
                 }

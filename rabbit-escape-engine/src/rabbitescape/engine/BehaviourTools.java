@@ -164,7 +164,7 @@ public class BehaviourTools
 
     private boolean onGround()
     {
-        return ( rabbit.onSlope || blockBelow() != null );
+        return ( rabbit.onSlope || ( blockBelow() != null && blockBelow().material != Block.Material.ONOFF_DEACTIVE ) );
     }
 
     public boolean isWall( Block block )
@@ -260,6 +260,7 @@ public class BehaviourTools
         return
             (
                 block != null
+                && block.material != Block.Material.ONOFF_DEACTIVE
                 && (
                        block.shape == FLAT
                     || block.shape == UP_LEFT
