@@ -1,0 +1,23 @@
+:name=Various Rabbits
+:description=Use Various Rabbits!
+:author_name=Cha Hyeonho
+:author_url=http://artificialworlds.net/rabbit-escape/
+:hint.1=Think!
+:num_rabbits=4
+:num_weak_rabbits=3
+:num_fragile_rabbits=2
+:num_delicate_rabbits=1
+:num_to_save=10
+:rabbit_delay=4
+:music=tryad-witness
+:dig=1
+:bash=1
+:bridge=1
+:climb=4
+###################################
+#                                 #
+#    Q        W       F       E   #
+#  #   #    #   #   #   #   #   # #
+#  #####    #####   #####   ##### #
+#                 O               #
+###################################

@@ -1,0 +1,24 @@
+:name=Delicate Rabbit Practice
+:description=Delicate Rabbit Cannot Climb!
+:author_name=Cha Hyeonho
+:author_url=http://artificialworlds.net/rabbit-escape/
+:hint.1=Think!
+:num_rabbits=3
+:num_delicate_rabbits=2
+:num_to_save=5
+:rabbit_delay=4
+:music=tryad-witness
+:climb=4
+:bridge=2
+:bash=1
+######################
+#                    #
+#                    #
+#                    #
+#           O        #
+#         ###        #
+#         ###        #
+#         ###        #
+#    Q    ###    E   #
+#         ###        #
+######################

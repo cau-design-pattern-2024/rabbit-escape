@@ -1,0 +1,23 @@
+:name=Fragile Rabbit Practice
+:description=Fragile Rabbit Cannot Bash!
+:author_name=Cha Hyeonho
+:author_url=http://artificialworlds.net/rabbit-escape/
+:hint.1=Think!
+:num_rabbits=3
+:num_fragile_rabbits=3
+:num_to_save=6
+:rabbit_delay=4
+:music=tryad-witness
+:bash=1
+:bridge=1
+######################
+#                    #
+#         F          #
+#     #        #     #
+#   ##############   #
+#           Q        #
+#      #             #
+####   ###############
+#                    #
+#         O          #
+######################
