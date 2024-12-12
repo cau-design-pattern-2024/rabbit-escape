@@ -36,6 +36,33 @@ public class TestEntrance
     }
 
     @Test
+    public void Various_rabbit_comes_out_of_various_entrance()
+    {
+        World world = createWorld(
+            ":num_rabbits=1",
+            ":num_weak_rabbits=1",
+            ":num_fragile_rabbits=1",
+            ":num_delicate_rabbits=1",
+            " Q W F E ",
+            "         ",
+            "         ",
+            "#########"
+        );
+
+        world.step();
+
+        assertThat(
+            renderWorld( world, true, false ),
+            equalTo(
+                " Q W F E ",
+                " r w f e ",
+                " f       ",
+                "#########"
+            )
+        );
+    }
+
+    @Test
     public void Rabbits_come_out_every_other_step_when_delay_is_2()
     {
         World world = createWorld(

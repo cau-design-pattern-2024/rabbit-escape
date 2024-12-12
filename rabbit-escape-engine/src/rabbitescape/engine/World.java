@@ -133,7 +133,9 @@ public class World
     public final String[] solutions;
     public final Comment[] comments;
     public final int num_rabbits;
-    public final int num_weak_rabbits;
+    public int num_weak_rabbits;
+    public int num_fragile_rabbits;
+    public int num_delicate_rabbits;
     public final int num_to_save;
     public final int[] rabbit_delay;
 
@@ -192,6 +194,8 @@ public class World
         this.solutions = solutions;
         this.num_rabbits = num_rabbits;
         this.num_weak_rabbits = 0;
+        this.num_fragile_rabbits = 0;
+        this.num_delicate_rabbits = 0;
         this.num_to_save = num_to_save;
         this.rabbit_delay = rabbit_delay;
         this.music = music;
@@ -261,6 +265,8 @@ public class World
         this.solutions = solutions;
         this.num_rabbits = num_rabbits;
         this.num_weak_rabbits = 0;
+        this.num_fragile_rabbits = 0;
+        this.num_delicate_rabbits = 0;
         this.num_to_save = num_to_save;
         this.rabbit_delay = rabbit_delay;
         this.music = music;
@@ -359,7 +365,9 @@ public class World
         Comment[] comments,
         WorldStatsListener statsListener,
         VoidMarkerStyle.Style voidStyle,
-        int num_weak_rabbits)
+        int num_weak_rabbits,
+        int num_fragile_rabbits,
+        int num_delicate_rabbits)
     {
         this.size = size;
         this.rabbits = rabbits;
@@ -373,6 +381,8 @@ public class World
         this.solutions = solutions;
         this.num_rabbits = num_rabbits;
         this.num_weak_rabbits = num_weak_rabbits;
+        this.num_fragile_rabbits = num_fragile_rabbits;
+        this.num_delicate_rabbits = num_delicate_rabbits;
         this.num_to_save = num_to_save;
         this.rabbit_delay = rabbit_delay;
         this.music = music;
