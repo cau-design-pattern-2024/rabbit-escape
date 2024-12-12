@@ -7,7 +7,9 @@
 :hint.3=Place your first bridging token about 5-7 squares before the wall.  Place another at the top of the bridge.
 :num_rabbits=5
 :num_weak_rabbits=1
-:num_to_save=10
+:num_fragile_rabbits=1
+:num_delicate_rabbits=1
+:num_to_save=8
 :rabbit_delay=4
 :music=tryad-witness
 :bash=20
@@ -16,14 +18,14 @@
 :climb=20
 :dig=20
 :explode=20
-######################
-#                    #
-#      W            O#
-#   #      #     /####
-#   ########    /##/##
-#                #\###
-#               /###/#
-# Q ##          /#/###
-#                ##\##
-#               /###/#
-######################
+##############################
+#                            #
+#     W F E                 O#
+#   #       #            /####
+#   #########           /##/##
+#                        #\###
+#                       /###/#
+#   ##                  /#/###
+# Q                      ##\##
+#                       /###/#
+##############################

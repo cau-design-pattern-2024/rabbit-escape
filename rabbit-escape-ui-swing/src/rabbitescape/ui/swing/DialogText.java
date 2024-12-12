@@ -54,6 +54,28 @@ public class DialogText
             );
         }
 
+        // num_fragile_rabbits가 0이 아닌 경우 텍스트 추가
+        if ((int) statsValues.get("num_fragile_rabbits") > 0) {
+            htmlBuilder.append(" ");
+            htmlBuilder.append(
+                t(
+                    "Fragile Rabbits: ${num_fragile_rabbits}",
+                    statsValues
+                )
+            );
+        }
+
+        // num_delicate_rabbits가 0이 아닌 경우 텍스트 추가
+        if ((int) statsValues.get("num_delicate_rabbits") > 0) {
+            htmlBuilder.append(" ");
+            htmlBuilder.append(
+                t(
+                    "Delicate Rabbits: ${num_delicate_rabbits}",
+                    statsValues
+                )
+            );
+        }
+
         htmlBuilder.append(" ");
         htmlBuilder.append(
             t(
@@ -65,6 +87,7 @@ public class DialogText
         htmlBuilder.append("</p>");
         return htmlBuilder.toString();
     }
+
 
     static String authorHtml( World world )
     {
@@ -148,6 +171,8 @@ public class DialogText
         Map<String, Object> values = new HashMap<String, Object>();
         values.put( "num_rabbits", world.num_rabbits );
         values.put( "num_weak_rabbits", world.num_weak_rabbits );
+        values.put( "num_fragile_rabbits", world.num_fragile_rabbits );
+        values.put( "num_delicate_rabbits", world.num_delicate_rabbits );
         values.put( "num_to_save", world.num_to_save );
         values.put( "num_saved",   world.num_saved );
         return values;
