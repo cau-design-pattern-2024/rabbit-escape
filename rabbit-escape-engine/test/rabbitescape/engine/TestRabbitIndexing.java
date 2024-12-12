@@ -38,6 +38,37 @@ public class TestRabbitIndexing
     }
 
     @Test
+    public void Various_rabbit_index_round_trips()
+    {
+        String[] lines = {
+            ":name=Various rabbit indexing test",
+            ":description=",
+            ":author_name=Cha Hyeonho",
+            ":author_url=http://rabbit.com",
+            ":num_rabbits=25",
+            ":num_weak_rabbits=5",
+            ":num_fragile_rabbits=6",
+            ":num_delicate_rabbits=7",
+            ":num_to_save=4",
+            ":rabbit_delay=2",
+            ":music=",
+            ":num_saved=5",
+            ":num_killed=4",
+            ":num_waiting=16",
+            ":rabbit_index_count=7",
+            ":paused=false",
+            "Q  W F E",
+            " k      ",
+            "########"
+        };
+
+        assertThat(
+            renderCompleteWorld( createWorld( lines ), true ),
+            equalTo( lines )
+        );
+    }
+
+    @Test
     public void Index_counter_increments_on_rabbit_entrance()
     {
         String[] lines = {
