@@ -2,11 +2,13 @@ package rabbitescape.ui.swing;
 
 import static rabbitescape.ui.swing.SwingConfigSetup.*;
 
-import java.awt.Dimension;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import rabbitescape.engine.config.Config;
 import rabbitescape.engine.config.ConfigTools;
@@ -15,6 +17,7 @@ import rabbitescape.render.androidlike.Sound;
 public class MainJFrame extends JFrame
 {
     private static final long serialVersionUID = 1L;
+    private Point normalLocation; // 원래 위치 기억용
 
     private class Listener extends EmptyListener
     {
@@ -136,6 +139,39 @@ public class MainJFrame extends JFrame
         {
             setPreferredSize( new Dimension( width, height ) );
         }
+    }
+
+    public void shakeWindow() {
+        final int shakeDistance = 10; // 흔들 강도 (픽셀)
+        final int shakeDuration = 200; // 전체 흔들 시간 (밀리초)
+        final int shakeInterval = 10; // 흔들 주기 (밀리초)
+
+        if (!isVisible()) return;
+
+        // 원래 위치 저장
+        normalLocation = getLocationOnScreen();
+
+        final Timer timer = new Timer(shakeInterval, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Point current = getLocationOnScreen();
+                int x = normalLocation.x + (int) (Math.random() * shakeDistance * 2 - shakeDistance);
+                int y = normalLocation.y + (int) (Math.random() * shakeDistance * 2 - shakeDistance);
+                setLocation(x, y);
+            }
+        });
+
+        timer.setRepeats(true);
+        timer.start();
+
+        // shakeDuration 이후에 타이머 정지하고 원위치로 복귀
+        new Timer(shakeDuration, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                timer.stop();
+                setLocation(normalLocation);
+            }
+        }).start();
     }
 
     public void exit()

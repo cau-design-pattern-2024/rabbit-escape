@@ -18,6 +18,21 @@ import rabbitescape.engine.util.Position;
 
 public class World
 {
+    final private List<RabbitObserver> rabbitObservers = new ArrayList<>();
+    public void addRabbitObserver(RabbitObserver observer) {
+        rabbitObservers.add(observer);
+    }
+
+    public void removeRabbitObserver(RabbitObserver observer) {
+        rabbitObservers.remove(observer);
+    }
+
+    private void notifyRabbitStateChanged(Rabbit rabbit, ChangeDescription.State newState) {
+        for (RabbitObserver obs : rabbitObservers) {
+            obs.onRabbitStateChanged(rabbit, newState);
+        }
+    }
+
     public static class DontStepAfterFinish extends RabbitEscapeException
     {
         private static final long serialVersionUID = 1L;
@@ -445,6 +460,11 @@ public class World
             throw new DontStepAfterFinish( name );
         }
 
+        Map<Rabbit, ChangeDescription.State> oldStates = new HashMap<>();
+        for (Rabbit r : rabbits) {
+            oldStates.put(r, r.state);
+        }
+
         for ( Thing thing : allThings() )
         {
             thing.step( this );
@@ -457,6 +477,14 @@ public class World
         for ( Thing thing : allThings() )
         {
             thing.calcNewState( this );
+        }
+
+        // 상태가 바뀌면 notify
+        for (Rabbit r : rabbits) {
+            ChangeDescription.State oldState = oldStates.get(r);
+            if (oldState != r.state) {
+                notifyRabbitStateChanged(r, r.state);
+            }
         }
 
         changes.blocksJustRemoved.clear();

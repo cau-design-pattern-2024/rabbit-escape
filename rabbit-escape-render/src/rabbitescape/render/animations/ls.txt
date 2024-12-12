@@ -1,5 +1,4 @@
 entrance.rea
-weak_entrance.rea
 exit.rea
 fire_a.rea
 fire_a_fall_to_rise_left.rea
@@ -286,3 +285,4 @@ token_explode_still.rea
 water_region.rea
 water_region_falling.rea
 water_region_half.rea
+weak_entrance.rea
